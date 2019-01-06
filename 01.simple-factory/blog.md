@@ -28,7 +28,7 @@ class Factory
 }
 ```
 
-没错，核心点就是中间那段简单的switch代码，而产品我们我们在返回值类型中固定为Product接口的实现。
+没错，核心点就是中间那段简单的switch代码，我们在返回值类型中固定为Product接口的实现。
 
 *在这段代码中，使用了PHP新特性，**参数类型**及**返回值类型***
 
@@ -68,7 +68,7 @@ $productA->show();
 $productB->show();
 ```
 
-从以上代码可以看出，其实这里就是一个工厂根据我们传入的字符串或者其他你自己定义的标识符，来返回对应的对象。比较规范的写法可能是所有产品都会去实现一个统一的接口，然后客户端只知道接口的方法统一调用即可。不规范的话也可以不使用接口，返回各种不同的对象，类似于外观（Facade）模式进行统一的门面管理。
+从以上代码可以看出，其实这里就是一个工厂根据我们传入的字符串或者其他你自己定义的标识符，来返回对应的对象。比较规范的写法可能是所有产品都会去实现一个统一的接口，然后客户端只知道接口的方法统一调用即可。不规范的话也可以不使用接口，返回各种不同的对象，类似于外观（Facade）模式进行统一的门面管理。
 
 ![简单工厂01](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/01.simple-factory/%08img/simple-factory.jpg)
 
@@ -76,4 +76,7 @@ $productB->show();
 
 ## 实例
 
-接下来，
+场景：消息推送现在我们使用了三个商家的，分别是阿里云、百度云、极光，在不同业务中可能使用不同的推送机制，使用简单工厂可以方便的完成这个需求。
+
+![简单工厂-消息发送](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/01.simple-factory/%08img/simple-factory-message.jpg)
+

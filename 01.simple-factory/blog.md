@@ -78,13 +78,17 @@ $productB->show();
 
 ![简单工厂-讲解](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/01.simple-factory/%08img/simple-factory.jpg)
 
-源码地址：[简单工厂基础类图实现](https://github.com/zhangyue0503/designpatterns-php/blob/master/01.simple-factory/source/simple-factory.php)
+**源码地址：[简单工厂基础类图实现](https://github.com/zhangyue0503/designpatterns-php/blob/master/01.simple-factory/source/simple-factory.php)**
 
 ## 实例
 
 场景：短信发送功能模块。现在我们使用了三个商家的，分别是阿里云、蝶信、极光的短信服务，在不同业务中可能使用不同的短信发送商，使用简单工厂可以方便的完成这个需求。
 
+> 类图
+
 ![简单工厂-消息发送](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/01.simple-factory/%08img/simple-factory-message.jpg)
+
+> 代码
 
 ```php
 <?php
@@ -137,7 +141,9 @@ $message = MessageFactory::createMessage('Ali');
 echo $message->send('您有新的短消息，请查收');
 ```
 
-源码地址：[简单工厂实例-短信发送工厂](https://github.com/zhangyue0503/designpatterns-php/blob/master/01.simple-factory/source/simple-factory-message.php)
+**源码地址：[简单工厂实例-短信发送工厂](https://github.com/zhangyue0503/designpatterns-php/blob/master/01.simple-factory/source/simple-factory-message.php)**
+
+> 说明
 
 - createMessage一定要使用static？不一定，看自己业务情况决定，需要常驻的全部static，按需实例化的就new完了再正常->去调用
 - 三个message子类一定需要实现接口？也不一定，php本身就是弱类型语言，可以不去强制实现，但使用接口更加符合面向对象的规范（请参考**多态**），简单工厂本身其实是对多态的一种表述和应用
@@ -147,4 +153,6 @@ echo $message->send('您有新的短消息，请查收');
 - 实例中传错了$type返回NULL怎么办？亲，实际写代码的时候请处理好这个问题哟，返回一个默认的，或者上层捕获都是不错的解决方案，当然最好客户端那边提前判断好，没问题了再进工厂吧
 - 将来在模式讲解中，还是会尽量使用新语法来书写，而在实例中，则使用比较兼容的写法
 
-*下回预告：**工厂方法模式**，接着发短信，但这回我们让客户端换个姿势来发*
+## 下期看点
+
+**工厂方法模式**，接着发短信，但这回我们让客户端换个姿势来发*

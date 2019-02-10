@@ -1,20 +1,20 @@
 <?php
 
-// 商品抽象类
-abstract class Product{
-    abstract public function show();
+// 商品接口
+interface Product{
+    function show() : void;
 }
 
 // 商品实现类A
-class ConcreteProductA extends Product{
-    public function show(){
+class ConcreteProductA implements Product{
+    public function show() : void{
         echo "I'm A.\n";
     }
 }
 
 // 商品实现类B
-class ConcreteProductB extends Product{
-    public function show(){
+class ConcreteProductB implements Product{
+    public function show() : void{
         echo "I'm B.\n";
     }
 }
@@ -23,10 +23,10 @@ class ConcreteProductB extends Product{
 abstract class Creator{
 
     // 抽象工厂方法
-    abstract protected function FactoryMethod();
+    abstract protected function FactoryMethod() : Product;
 
     // 操作方法
-    public function AnOperation(){
+    public function AnOperation() : Product{
         return $this->FactoryMethod();
     }
 }
@@ -34,7 +34,7 @@ abstract class Creator{
 // 创建者实现类A
 class ConcreteCreatorA extends Creator{
     // 实现操作方法
-    protected function FactoryMethod(){
+    protected function FactoryMethod() : Product{
         return new ConcreteProductA();
     }
 }
@@ -42,7 +42,7 @@ class ConcreteCreatorA extends Creator{
 // 创建者实现类A
 class ConcreteCreatorB extends Creator{
     // 实现操作方法
-    protected function FactoryMethod(){
+    protected function FactoryMethod() : Product{
         return new ConcreteProductB();
     }
 }

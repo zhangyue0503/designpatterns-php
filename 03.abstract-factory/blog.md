@@ -106,7 +106,7 @@ class ConcreteFactory2 implements AbstractFactory
 
 而我们的工厂也是工厂1和工厂2，工厂1生产的是A1和B1这两种相关联的产品，工厂2生产的是A2和B2这两种商品。好吧，我知道这里还是有点抽象，可能还是搞不懂为什么要这样，我们继续以手机生产来举例。
 
-*我们的手机品牌起来了，所以周边如手机膜、手机壳也交给了富X康（AbstractFactory）来帮我搞定。上回说到，我已经有几款不同类型的手机了，于是还是按原来那样，衡阳工厂（Factory1）生产型号1001的手机（ProductA1），同时型号A手机的手机膜（ProductB1）和手机壳（ProductC1）也是衡阳工厂生产出来。而型号1002的手机（ProductA2）还是在郑州工厂（Factory2），这个型号的手机膜（ProductB2）和手机膜（ProductC2）也就交给他们来搞定吧。于是，我还是只去跟总厂下单，他们让不同的工厂给我生产了一整套的手机产品，可以直接卖套装咯！！*
+*我们的手机品牌起来了，所以周边如手机膜、手机壳也交给了富X康（AbstractFactory）来帮我搞定。上回说到，我已经有几款不同类型的手机了，于是还是按原来那样，衡阳工厂（Factory1）生产型号1001的手机（ProductA1），同时型号1001手机的手机膜（ProductB1）和手机壳（ProductC1）也是衡阳工厂生产出来。而型号1002的手机（ProductA2）还是在郑州工厂（Factory2），这个型号的手机膜（ProductB2）和手机膜（ProductC2）也就交给他们来搞定吧。于是，我还是只去跟总厂下单，他们让不同的工厂给我生产了一整套的手机产品，可以直接卖套装咯！！*
 
 **完整代码：[抽象工厂模式](https://github.com/zhangyue0503/designpatterns-php/blob/master/03.abstract-factory/source/abstract-factory.php)**
 

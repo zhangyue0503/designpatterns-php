@@ -10,7 +10,7 @@
 
 > GoF类图
 
-![工厂方法结构类图]()
+![工厂方法结构类图](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/03.abstract-factory/img/abstract-factory.jpg)
 
 - 左边是两个工厂1和2，都继承一个抽象工厂，都实现了CreateProductA和CreateProductB方法
 - 工厂1生产的是ProductA1和ProductB1
@@ -108,13 +108,17 @@ class ConcreteFactory2 implements AbstractFactory
 
 *我们的手机品牌起来了，所以周边如手机膜、手机壳也交给了富X康（AbstractFactory）来帮我搞定。上回说到，我已经有几款不同类型的手机了，于是还是按原来那样，衡阳工厂（Factory1）生产型号1001的手机（ProductA1），同时型号A手机的手机膜（ProductB1）和手机壳（ProductC1）也是衡阳工厂生产出来。而型号1002的手机（ProductA2）还是在郑州工厂（Factory2），这个型号的手机膜（ProductB2）和手机膜（ProductC2）也就交给他们来搞定吧。于是，我还是只去跟总厂下单，他们让不同的工厂给我生产了一整套的手机产品，可以直接卖套装咯！！*
 
-**完整代码：[抽象工厂模式]()**
+**完整代码：[抽象工厂模式](https://github.com/zhangyue0503/designpatterns-php/blob/master/03.abstract-factory/source/abstract-factory.php)**
 
 ## 实例
 
 是不是看得还是有点晕。其实说简单点，真的就是在一个工厂类中通过不同的方法返回不同的对象而已。让我们再次用发短信的实例来讲解吧！
 
 场景：这次我们有个业务需求是，不仅要发短信，还要同时发一条推送。短信的目的是通知用户有新的活动参加，而推送不仅通知有新的活动，直接点击就可以进去领红包了，是不是很兴奋。还好之前我们的选择的云服务供应商都是即有短信也有推送接口的，所以我们就直接用抽象工厂来实现吧！
+
+> 短信发送类图
+
+![短信发送抽象工厂方法](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/03.abstract-factory/img/abstract-factory-message.jpg)
 
 ```php
 <?php
@@ -219,7 +223,7 @@ echo $push->send('您有新的红包已到帐，请查收！');
 
 ```
 
-**完整源码：[短信发送工厂方法]()**
+**完整源码：[短信发送工厂方法](https://github.com/zhangyue0503/designpatterns-php/blob/master/03.abstract-factory/source/abstract-factory-message-push.php)**
 
 > 说明
 

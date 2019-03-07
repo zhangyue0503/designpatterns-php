@@ -70,11 +70,13 @@ class ConcreteDecoratorB extends Decorator{
 
 *手机这玩意干不过某米、某O、某为，这没法玩呀，好吧，哥们去专心做手机壳吧！嗯，我先准备了一个透明壳（Component），貌似有点丑，没办法，谁叫哥们穷。给某米的加上各种纯色（DecoratorA1），然后背后印上各种颜色的植物（DecoratorB1）吧；某O的手机最近喜欢找流量明显做代言，那我给他的手机壳就用各种炫彩色（DecoratorA2）和明星的卡通头像（DecoratorB2）；最后的某为，好像手机已经开始引领业界潮流了，折叠屏这玩意不是要砸我这卖手机壳的生意嘛！！好吧，哥不给你们做了，还是跟我的某米、某O混去吧！！*
 
-**完整代码：[装饰器模式]()**
+**完整代码：[装饰器模式](https://github.com/zhangyue0503/designpatterns-php/blob/master/04.decorator/source/decorator.php)**
 
 ## 实例
 
+继续来发短信，之前我们用工厂模式解决了多个短信运营商的问题。这回我们要解决的是短信内容模板的问题。对于推广类的短信来说，根据最新的广告法，我们是不能出现“全国第一”、“全世界第一”这类的词语的，当然，一些不太文明的用语我们也是不能使用的。
 
+现在的情况是这样的，我们有一个很早之前的短信模板类，里面的内容是固定的，老系统依然还是使用这个模板，老系统是面对的内部员工，对语言内容的要求不高。而新系统则需要向全网发送，也就是内外部的用户都要发送。这时，我们可以用装饰器模式来对老系统的短信模板进行包装。其实说简单点，我们就是用装饰器来做文本替换的功能。好处呢？当然是可以不去改动原来的模板类中的方法就实现了对老模板内容的修改扩展等。
 
 > 短信发送类图
 
@@ -83,7 +85,98 @@ class ConcreteDecoratorB extends Decorator{
 
 **完整源码：[短信发送装饰器方法]()**
 
+```php
+<?php
+// 短信模板接口
+interface MessageTemplate
+{
+    public function message();
+}
+
+// 假设有很多模板实现了上面的短信模板接口
+// 下面这个是其中一个优惠券发送的模板实现
+class CouponMessageTemplate implements MessageTemplate
+{
+    public function message()
+    {
+        return '优惠券信息：我们是全国第一的牛X产品哦，送您十张优惠券！';
+    }
+}
+
+// 我们来准备好装饰上面那个过时的短信模板
+abstract class DecoratorMessageTemplate implements MessageTemplate
+{
+    public $template;
+    public function __construct($template)
+    {
+        $this->template = $template;
+    }
+}
+
+// 过滤新广告法中不允许出现的词汇
+class AdFilterDecoratorMessage extends DecoratorMessageTemplate
+{
+    public function message()
+    {
+        return str_replace('全国第一', '全国第二', $this->template->message());
+    }
+}
+
+// 使用我们的大数据部门同事自动生成的新词库来过滤敏感词汇，这块过滤不是强制要过滤的内容，可选择使用
+class SensitiveFilterDecoratorMessage extends DecoratorMessageTemplate
+{
+    public $bigDataFilterWords = ['牛X'];
+    public $bigDataReplaceWords = ['好用'];
+    public function message()
+    {
+        return str_replace($this->bigDataFilterWords, $this->bigDataReplaceWords, $this->template->message());
+    }
+}
+
+// 客户端，发送接口，需要使用模板来进行短信发送
+class Message
+{
+    public $msgType = 'old';
+    public function send(MessageTemplate $mt)
+    {
+        // 发送出去咯
+        if ($this->msgType == 'old') {
+            echo '面向内网用户发送' . $mt->message() . PHP_EOL;
+        } else if ($this->msgType == 'new') {
+            echo '面向全网用户发送' . $mt->message() . PHP_EOL;
+        }
+
+    }
+}
+
+$template = new CouponMessageTemplate();
+$message = new Message();
+
+// 老系统，用不着过滤，只有内部用户才看得到
+$message->send($template);
+
+// 新系统，面向全网发布的，需要过滤一下内容哦
+$message->msgType = 'new';
+$template = new AdFilterDecoratorMessage($template);
+$template = new SensitiveFilterDecoratorMessage($template);
+
+// 过滤完了，发送吧
+$message->send($template);
+
+```
+
 > 说明
+
+- 装饰器的最大好处：一是不改变原有代码的情况下对原有代码中的内容进行扩展，开放封闭原则；二是每个装饰器完成自己的功能，单一职责；三是用组合实现了继承的感觉；
+- 最适用于：给老系统进行扩展
+- 要小心：过多的装饰者会把你搞晕的
+- 不一定都是对同一个方法进行装饰，其实装饰者应该更多的用于对对象的装饰，对对象进行扩展，这里我们都是针对一个方法的输出进行装饰，但仅限此文，装饰器的应用其实更加广泛
+- 装饰器的特点是全部都继承自一个主接口或类，这样的好处就是返回的对象是相同的抽象数据，具有相同的行为属性，否则，就不是装饰之前的对象，而是一个新对象了
+- 有点不好理解没关系，我们这次的例子其实也很勉强，这个设计模式在《Head First设计模式》中有提到Java的I/O系列接口是使用的这种设计模式：FileInputStream、LineNumberInputStream、BufferInputStream等
+- Laravel框架中的中间件管道这里，这里其实是多种模式的综合应用，其中也应用到了装饰器模式：[Laravel HTTP——Pipeline 中间件装饰者模式源码分析
+](https://learnku.com/articles/5414/analysis-of-source-code-for-laravel-http-pipeline-middleware-decorator)
+
+**完整源码：[短信模板装饰器方法](https://github.com/zhangyue0503/designpatterns-php/blob/master/04.decorator/source/message-decorator.php)**
 
 ## 下期看点
 

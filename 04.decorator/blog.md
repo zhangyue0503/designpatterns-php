@@ -10,7 +10,7 @@
 
 > GoF类图
 
-![装饰器方法结构类图]()
+![装饰器方法结构类图](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/04.decorator/img/decorator.jpg)
 
 > 代码实现
 
@@ -83,7 +83,7 @@ class ConcreteDecoratorB extends Decorator{
 ![短信发送装饰器方法]()
 
 
-**完整源码：[短信发送装饰器方法]()**
+**完整源码：[短信发送装饰器方法](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/04.decorator/img/message-decorator.jpg)**
 
 ```php
 <?php

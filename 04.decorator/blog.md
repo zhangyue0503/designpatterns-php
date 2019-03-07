@@ -80,10 +80,10 @@ class ConcreteDecoratorB extends Decorator{
 
 > 短信发送类图
 
-![短信发送装饰器方法]()
+![短信发送装饰器方法](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/04.decorator/img/message-decorator.jpg)
 
 
-**完整源码：[短信发送装饰器方法](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/04.decorator/img/message-decorator.jpg)**
+**完整源码：[短信发送装饰器方法](https://github.com/zhangyue0503/designpatterns-php/blob/master/04.decorator/source/message-decorator.php)**
 
 ```php
 <?php
@@ -175,8 +175,6 @@ $message->send($template);
 - 有点不好理解没关系，我们这次的例子其实也很勉强，这个设计模式在《Head First设计模式》中有提到Java的I/O系列接口是使用的这种设计模式：FileInputStream、LineNumberInputStream、BufferInputStream等
 - Laravel框架中的中间件管道这里，这里其实是多种模式的综合应用，其中也应用到了装饰器模式：[Laravel HTTP——Pipeline 中间件装饰者模式源码分析
 ](https://learnku.com/articles/5414/analysis-of-source-code-for-laravel-http-pipeline-middleware-decorator)
-
-**完整源码：[短信模板装饰器方法](https://github.com/zhangyue0503/designpatterns-php/blob/master/04.decorator/source/message-decorator.php)**
 
 ## 下期看点
 

@@ -8,7 +8,13 @@
 
 > GoF类图
 
-![装饰器方法结构类图](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/04.decorator/img/decorator.jpg)
+继承式
+
+![适配器方法结构类图-继承式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/05.adapter/img/adapter-1.jpg)
+
+组合式
+
+![适配器方法结构类图-组合式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/05.adapter/img/adapter-2.jpg)
 
 > 代码实现
 
@@ -51,7 +57,7 @@ class Adaptee {
 
 *又说到我的手机工厂了，这回咱们的生意真的做大了哦！卖到泰国、新加坡、印度尼西亚去了，反正有咖喱的地方都有我们的身影了。据说是我们出了个咖喱色。换壳这事儿可不完全是因为受到诺X亚的影响，而是真的经过长期的调研我们发现不同颜色在不同的地方销量会更好。于是，富X康在原有的手机壳生产线（Target）上为我们加装了一个喷涂适配器（adapter），当我们需要其他颜色的壳时，只需要这个适配器换不同的颜料就好啦（adaptee），直接装上这个喷涂器，新的颜色的手机就诞生了。而当向另外一个国家扩展业务时，我们换颜料就行啦，用太久了不行就连喷头也换掉（是不是想起了连供打印机）*
 
-**完整代码：[装饰器模式](https://github.com/zhangyue0503/designpatterns-php/blob/master/04.decorator/source/decorator.php)**
+**完整代码：[适配器模式](https://github.com/zhangyue0503/designpatterns-php/blob/master/05.adapter/source/adapter.php)**
 
 ## 实例
 
@@ -61,10 +67,10 @@ class Adaptee {
 
 > 短信发送类图
 
-![短信发送装饰器方法](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/04.decorator/img/message-decorator.jpg)
+![短信发送装饰器方法](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/05.adapter/img/adapter-message.jpg)
 
 
-**完整源码：[短信发送装饰器方法](https://github.com/zhangyue0503/designpatterns-php/blob/master/04.decorator/source/message-decorator.php)**
+**完整源码：[短信发送适配器方法](https://github.com/zhangyue0503/designpatterns-php/blob/master/05.adapter/source/adapter-message.php)**
 
 ```php
 <?php

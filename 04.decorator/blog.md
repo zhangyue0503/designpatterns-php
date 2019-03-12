@@ -173,9 +173,10 @@ $message->send($template);
 - 不一定都是对同一个方法进行装饰，其实装饰者应该更多的用于对对象的装饰，对对象进行扩展，这里我们都是针对一个方法的输出进行装饰，但仅限此文，装饰器的应用其实更加广泛
 - 装饰器的特点是全部都继承自一个主接口或类，这样的好处就是返回的对象是相同的抽象数据，具有相同的行为属性，否则，就不是装饰之前的对象，而是一个新对象了
 - 有点不好理解没关系，我们这次的例子其实也很勉强，这个设计模式在《Head First设计模式》中有提到Java的I/O系列接口是使用的这种设计模式：FileInputStream、LineNumberInputStream、BufferInputStream等
-- Laravel框架中的中间件管道这里，这里其实是多种模式的综合应用，其中也应用到了装饰器模式：[Laravel HTTP——Pipeline 中间件装饰者模式源码分析
+- Laravel框架中的中间件管道，这里其实是多种模式的综合应用，其中也应用到了装饰器模式：[Laravel HTTP——Pipeline 中间件装饰者模式源码分析
 ](https://learnku.com/articles/5414/analysis-of-source-code-for-laravel-http-pipeline-middleware-decorator)
+- 另外在Laravel中，日志处理这里也是对Monolog进行了装饰，有兴趣的同学可以去了解下
 
 ## 下期看点
 
-又是大伽驾到，电源适配器了解吧？变压器总见过吧？你可能用过，也可能没用过，但你一定听说过的**适配器模式**。
+又是大伽驾到，电源适配器了解吧？变压器总见过吧？你可能用过，也可能没用过，但你一定听说过这个非常非常出名的**适配器模式**。

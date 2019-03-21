@@ -8,7 +8,7 @@
 
 > GoF类图
 
-![适配器方法结构类图-继承式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/05.adapter/img/adapter-1.jpg)
+![适配器方法结构类图-继承式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/06.observer/img/observer.jpg)
 
 
 > 代码实现
@@ -98,7 +98,7 @@ Subject的实现类，只是更新了状态，在这个状态发生改变的时�
 
 > 订单售出类图
 
-![订单售出观察者模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/05.adapter/img/adapter-message.jpg)
+![订单售出观察者模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/06.observer/img/order-observer.jpg)
 
 
 **完整源码：[订单售出观察者模式](https://github.com/zhangyue0503/designpatterns-php/blob/master/06.observer/source/order-observer.php)**

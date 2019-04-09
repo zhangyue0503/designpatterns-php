@@ -102,11 +102,10 @@ $mobileList = [
     '13111111117',
     '13111111118',
 ];
-$list = array_chunk($mobileList, count($mobileList) / 2);
 
 // A服务器脚本或使用swoole发送正向的一半
 $serverA = new MessageAsc();
-$iteratorA = $serverA->CreateIterator($list[0]);
+$iteratorA = $serverA->CreateIterator($mobileList);
 
 while (!$iteratorA->IsDone()) {
     echo $iteratorA->CurrentItem(), PHP_EOL;
@@ -115,7 +114,7 @@ while (!$iteratorA->IsDone()) {
 
 // B服务器脚本或使用swoole同步发送反向的一半
 $serverB = new MessageDesc();
-$iteratorB = $serverB->CreateIterator($list[1]);
+$iteratorB = $serverB->CreateIterator($mobileList);
 
 while (!$iteratorB->IsDone()) {
     echo $iteratorB->CurrentItem(), PHP_EOL;

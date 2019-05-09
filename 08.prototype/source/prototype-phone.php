@@ -49,6 +49,7 @@ $cmPhone->rom = "64G";
 $cmPhone->service_province = new ChinaMobile();
 $cmPhone->service_province->system = 'TD-CDMA';
 $cmPhone1 = clone $cmPhone;
+$cmPhone1->service_province->system = 'TD-CDMA1';
 
 var_dump($cmPhone);
 var_dump($cmPhone1);
@@ -62,6 +63,7 @@ $cuPhone->rom = "64G";
 $cuPhone->service_province = new ChinaUnicom();
 $cuPhone->service_province->system = 'WCDMA';
 $cuPhone1 = clone $cuPhone;
+$cuPhone1->rom = "128G";
 $cuPhone1->service_province->system = 'WCDMA1';
 
 var_dump($cuPhone);

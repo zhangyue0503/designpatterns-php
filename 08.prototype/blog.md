@@ -8,252 +8,168 @@
 
 > GoF类图
 
-![原型模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/07.iterator/img/iterator.jpg)
+![原型模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/08.prototype/img/prototype.jpg)
 
 
 > 代码实现
 
 ```php
-interface Aggregate
+abstract class Prototype
 {
-    public function CreateIterator();
-}
+    public $v = 'clone' . PHP_EOL;
 
-class ConcreteAggregate implements Aggregate
-{
-    public function CreateIterator()
+    public function __construct()
     {
-        $list = [
-            "a",
-            "b",
-            "c",
-            "d",
-        ];
-        return new ConcreteIterator($list);
+        echo 'create' . PHP_EOL;
     }
+
+    abstract public function __clone();
 }
 ```
 
-首先是聚合类，也就是可以进行迭代的类，这里因为我是面向对象的设计模式，所以迭代器模式针对的是对一个类的内容进行迭代。在这里，其实我们也只是模拟了一个数组交给了迭代器。
+首先我们通过模拟的方式定义了一个原型，这里主要是模拟了__clone()这个方法。其实这是PHP自带的一个魔术方法，根本是不需要我们去进行定义的，只需要在原型类中进行实现就可以了。当外部使用clone关键字进行对象克隆时，直接就会进入这个魔术方法中。在这个魔术方法里面我们可以对属性进行处理，特别是针对引用属性进行一些独特的处理。在这个例子中，我们只使用了一个值类型的变量。无法体现出引用类型的问题，我们将在后面的实例中演示对引用类型变量的处理。
 
 ```php
-interface MyIterator
+class ConcretePrototype1 extends Prototype
 {
-    public function First();
-    public function Next();
-    public function IsDone();
-    public function CurrentItem();
+    public function __clone()
+    {
+    }
 }
 
-class ConcreteIterator implements MyIterator
+class ConcretePrototype2 extends Prototype
 {
-    private $list;
-    private $index;
-    public function __construct($list)
+    public function __clone()
     {
-        $this->list = $list;
-        $this->index = 0;
-    }
-    public function First()
-    {
-        $this->index = 0;
-    }
-
-    public function Next()
-    {
-        $this->index++;
-    }
-
-    public function IsDone()
-    {
-        return $this->index >= count($this->list);
-    }
-
-    public function CurrentItem()
-    {
-        return $this->list[$this->index];
     }
 }
 ```
 
-迭代器闪亮登场，主要实现了四个方法来对集合数据进行操作。有点像学习数据结构或数据库时对游标进行的操作。用First()和Next()来移动游标，用CurrentItem()来获得当前游标的数据内容，用IsDone()来确认是否还有下一条数据。所以，这个模式也另称为**游标模式**。
+模拟的具体实现的原型，其实就是主要去具体的实现__clone()方法。后面我们看具体的例子时再说明。
 
 ```php
-$agreegate = new ConcreteAggregate();
-$iterator = $agreegate->CreateIterator();
+class Client
+{
+    public function operation()
+    {
+        $p1 = new ConcretePrototype1();
+        $p2 = clone $p1;
 
-while (!$iterator->IsDone()) {
-    echo $iterator->CurrentItem(), PHP_EOL;
-    $iterator->Next();
+        echo $p1->v;
+        echo $p2->v;
+    }
 }
+
+$c = new Client();
+$c->operation();
 ```
 
-客户端直接使用while来进行操作即可。
+客户端使用clone来复制$p1，可以看到$p2也具有相同的$v属性。
 
-- 大家一定很好奇，为什么我们的迭代器接口类不用Iterator来命名？试试就知道，PHP为我们准备好了一个这个接口，实现之后就可以用foreach来使用这个实现了Iterator接口的类了，是不是很高大上。我们最后再看这个类的使用。
-- 不是说好对类进行遍历吗？为啥来回传递一个数组？开发过Java的同学一定知道，在一个名为Object类的JavaBean中，会写一个变量List<Object>类型的变量如List<Object> myList，用来表示当前对象的集合。在使用的时候给这个List添加数据后，下次就可以直接用Object.myList来获得一组数据了。比如从接口中获得的json数组内容就可以这样存在一个Bean中。这时，我们使用迭代器就可以只针对自己这个对象内部的这个数组来进行操作啦！
-- 上述Java的内容其实是笔者在做Android开发时经常会用到的，有时数据库的JavaBean也会出现这种数组来存储外键。但在PHP中一般很少使用，因为PHP中大部分的AR对象和Java中的Bean概念还是略有不同。有兴趣的同学可以了解下！
+- 原型模式看似就是复制了一个相同的对象，但是请注意，复制的时候，__construct()方法并没有被调用，也就是当你运行这段代码的时候，create只输出了一次。这也就带出了原型模式最大的一个特点——**减少创建对象时的开销**。
+- 基于上述特点，我们可以快速的复制大量相同的对象，比如要给一个数组中塞入大量相同的对象时。
+- 复制出来的对象中如果都是值类型的属性，我们可以任意修改，不会对原型产生影响。而如果有引用类型的变量，则需要在__clone()方法进行一些处理，否则修改了复制对象的引用变量中的内容，会对原型对象中的内容有影响。
 
-*我们的手机工厂不得了，自己组装了一条生产线，这条生产线主要是做什么的呢？成型机我们已经交给富X康来搞定了，我们这条线就是给手机刷颜色的。当我们把所有已经交货的手机（Aggregate）放到不同的生产线后（Iterator），就会一台一台的帮我们刷上当前生产线的颜色，是不是很强大！！科技不止于换壳，这条线还在，我们就可以再做别的事儿，比如加点挂绳什么的，反正只要能一台一台的通过我就能装上东西，你说好用不好用！！*
+*我们的手机操作系统（也可以想象一下PC电脑的操作系统），都是怎样安装到设备中呢？其实都是不停的复制拷贝最初的那一套系统。用微软的例子非常好说明这个问题，当年微软能够成为一个帝国，其实也是因为他不停的将winodws操作系统拷贝复制到光盘中，然后卖给千家万户（当然，这里没中国什么事儿）。而中国市场呢，大量的高手破解了windows之后也是由这一份文件不停的复制拷贝才装到了我们的电脑中。手机、智能设备等各类产品的操作系统、软件都是如此。一次开发无限拷贝正是软件行业暴利的原因。毕竟我们的系统也是由不少的工程师日以继夜的996在Android原生系统的基础上开发出来的，赶紧不断的复制到即将出厂的手机上吧！！*
 
-**完整代码：[迭代器模式](https://github.com/zhangyue0503/designpatterns-php/blob/master/07.iterator/source/iterator.php)**
+**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/08.prototype/source/prototype.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/08.prototype/source/prototype.php)**
 
 ## 实例
 
-实例还是围绕着我们的短信发送来看。这一次，我们的业务需求是尽快的发一批通知短信给用户，因为活动的时候可不等人啊。在之前我们会使用多个脚本来把用户手机号分成多组来进行发送。现在我们可以用swoole来直接多线程的发送。所要达到的效果其实就是为了快速的把成百上千的短信发完。这个时候我们也会做一些策略，比如数据库里是100条要送的短信，有个字段是发送状态，一个线程正序的发，一个线程倒序的发，当正序和倒序都发送到50条的时候其实已经同步的发完这100条了，不过也有可能会有失败的情况出现，这时，两个线程还会继续去发送那些上次发送不成功的信息，这样能够最大程度的确保发送的效率和到达率。
+同样还是拿手机来说事儿，这次我们是根据不同的运营商需要去开发一批定制机，也就是套餐机。这批手机说实话都并没有什么不同，大部分都是相同的配置，但是运营商系统不同，而且偶尔有一些型号的CPU和内存也可能存在不同。这个时候，我们就可以用原型模式来进行快速的复制并且只修改一部分不相同的地方啦。
 
-> 消息发送迭代器类图
+> 原型模式生产手机类图
 
-![消息发送迭代器](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/07.iterator/img/iterator-msg.jpg)
+![原型模式生产手机](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/08.prototype/img/prototype-phone.jpg)
 
 
-**完整源码：[消息发送迭代器](https://github.com/zhangyue0503/designpatterns-php/blob/master/07.iterator/source/iterator-msg.php)**
+**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/08.prototype/source/prototype-phone.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/08.prototype/source/prototype-phone.php)**
 
 ```php
 <?php
-
-interface MsgIterator
+interface ServiceProvicer
 {
-    public function First();
-    public function Next();
-    public function IsDone();
-    public function CurrentItem();
+    public function getSystem();
 }
 
-// 正向迭代器
-class MsgIteratorAsc implements MsgIterator
+class ChinaMobile implements ServiceProvicer
 {
-    private $list;
-    private $index;
-    public function __construct($list)
-    {
-        $this->list = $list;
-        $this->index = 0;
-    }
-    public function First()
-    {
-        $this->index = 0;
-    }
-
-    public function Next()
-    {
-        $this->index++;
-    }
-
-    public function IsDone()
-    {
-        return $this->index >= count($this->list);
-    }
-
-    public function CurrentItem()
-    {
-        return $this->list[$this->index];
+    public $system;
+    public function getSystem(){
+        return "中国移动" . $this->system;
     }
 }
-
-// 反向迭代器
-class MsgIteratorDesc implements MsgIterator
+class ChinaUnicom implements ServiceProvicer
 {
-    private $list;
-    private $index;
-    public function __construct($list)
-    {
-        // 反转数组
-        $this->list = array_reverse($list);
-        $this->index = 0;
-    }
-    public function First()
-    {
-        $this->index = 0;
-    }
-
-    public function Next()
-    {
-        $this->index++;
-    }
-
-    public function IsDone()
-    {
-        return $this->index >= count($this->list);
-    }
-
-    public function CurrentItem()
-    {
-        return $this->list[$this->index];
+    public $system;
+    public function getSystem(){
+        return "中国联通" . $this->system;
     }
 }
 
-interface Message
+class Phone 
 {
-    public function CreateIterator($list);
+    public $service_province;
+    public $cpu;
+    public $rom;
 }
 
-class MessageAsc implements Message
+class CMPhone extends Phone
 {
-    public function CreateIterator($list)
+    function __clone()
     {
-        return new MsgIteratorAsc($list);
-    }
-}
-class MessageDesc implements Message
-{
-    public function CreateIterator($list)
-    {
-        return new MsgIteratorDesc($list);
+        // $this->service_province = new ChinaMobile();
     }
 }
 
-// 要发的短信号码列表
-$mobileList = [
-    '13111111111',
-    '13111111112',
-    '13111111113',
-    '13111111114',
-    '13111111115',
-    '13111111116',
-    '13111111117',
-    '13111111118',
-];
-
-// A服务器脚本或使用swoole发送正向的一半
-$serverA = new MessageAsc();
-$iteratorA = $serverA->CreateIterator($mobileList);
-
-while (!$iteratorA->IsDone()) {
-    echo $iteratorA->CurrentItem(), PHP_EOL;
-    $iteratorA->Next();
+class CUPhone extends Phone
+{
+    function __clone()
+    {
+        $this->service_province = new ChinaUnicom();
+    }
 }
 
-// B服务器脚本或使用swoole同步发送反向的一半
-$serverB = new MessageDesc();
-$iteratorB = $serverB->CreateIterator($mobileList);
 
-while (!$iteratorB->IsDone()) {
-    echo $iteratorB->CurrentItem(), PHP_EOL;
-    $iteratorB->Next();
-}
+$cmPhone = new CMPhone();
+$cmPhone->cpu = "1.4G";
+$cmPhone->rom = "64G";
+$cmPhone->service_province = new ChinaMobile();
+$cmPhone->service_province->system = 'TD-CDMA';
+$cmPhone1 = clone $cmPhone;
+$cmPhone1->service_province->system = 'TD-CDMA1';
+
+var_dump($cmPhone);
+var_dump($cmPhone1);
+echo $cmPhone->service_province->getSystem();
+echo $cmPhone1->service_province->getSystem();
+
+
+$cuPhone = new CUPhone();
+$cuPhone->cpu = "1.4G";
+$cuPhone->rom = "64G";
+$cuPhone->service_province = new ChinaUnicom();
+$cuPhone->service_province->system = 'WCDMA';
+$cuPhone1 = clone $cuPhone;
+$cuPhone1->rom = "128G";
+$cuPhone1->service_province->system = 'WCDMA1';
+
+var_dump($cuPhone);
+var_dump($cuPhone1);
+echo $cuPhone->service_province->getSystem();
+echo $cuPhone1->service_province->getSystem();
 
 ```
 
 > 说明
 
-- 其实就是两个迭代器，一个是正序一个是倒序，然后遍历数组
-- 例子中我们还是对一个数组的操作，另外用两个类似于工厂方法模式的类来对迭代器进行封装
-- 例子非常简单，但有时候这种用法也非常实用，比如一些搜索引擎排名的爬虫，多次确认某些关键词的排名，这时候我们就可以正着、反着来回进行验证
-
-**完整源码：[PHP扩展SPL实现观察者模式](https://github.com/zhangyue0503/designpatterns-php/blob/master/06.observer/source/spl_observer.php)**
-
-> 彩蛋
-
-PHP中的Iterator接口已经为我们准备好了一套标准的Iterator模式的实现，而且（这里需要画重点），实现这个接口的类可以用foreach来遍历哦！
-
-文档：[https://www.php.net/manual/zh/class.iterator.php](https://www.php.net/manual/zh/class.iterator.php)
-[简单实现源码](https://github.com/zhangyue0503/designpatterns-php/blob/master/07.iterator/source/iterator-php.php)
-
-文档中相关的接口都可以看看，更重要的是，PHP的SPL扩展中，也为我们准备了很多常用的迭代器封装。要知道，面试的时候要是能说出这里面的几个来，那面试官可是也会刮目相看的哦！
-
-[SPL迭代器](https://www.php.net/manual/zh/spl.iterators.php)
+- 打印了很多东西呀，不过主要的还是看看移动手机，也就是CMPhone中的__clone()方法，我们没有重新去初始化一个新对象。这时，复制的$cmPhone1对象中的service_province和$cmPhone中的是同一个对象。没错，这就是引用的复制问题。引用只是复制了引用的地址，他们指向的是同一个对象。当$cmPhone1修改service_province对象里面的属性内容时，$cmPhone里面的service_province对象里面的属性也跟着改变了。
+- 在CUPhone中，我们重新new了一个新的service_province对象。这次外面的$cuPhone1对该对象中的属性修改时就不会影响$cuPhone中引用对象的值。
+- 原型模式中最主要的就是要注意上述两点，而普通的值属性会直接进行复制，不会产生这个问题。这里又牵涉出另外两个概念：**浅复制**和**深复制**
+- 浅复制，是指被复制对象的所有变量都含有与原来对象相同的值，而所有的对其他对象的引用都仍然指向原来的对象
+- 深复制把引用对象的变量指向复制过的新对象，而不是原有的被引用的对象
+- 关于引用和值的问题，我们将在其他的文章中进行讲解，请关注微信或掘金号
 
 ## 下期看点
 
-原型模式虽然平常用得不多，但是学习之后发现还是挺有用的，特别是需要大量的重复对象时，可以大大节约新建对象的资源需求。下一个又会是谁呢？别急别急，先去下个馆子，厨师、服务员、顾客，这三个要素就能组成一个神奇的模式：**命令模式**
+原型模式虽然平常用得不多，但是学习之后发现还真是挺有用的，特别是需要大量的重复对象时，可以大大节约新建对象的资源需求，以后还是需要多多练习早日应用在实际的业务场景中。下一个又会是谁呢？别急别急，先去下个馆子，厨师、服务员、顾客，这三个要素就能组成一个神奇的模式：**命令模式**

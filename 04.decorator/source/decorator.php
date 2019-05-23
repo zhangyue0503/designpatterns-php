@@ -16,6 +16,7 @@ abstract class Decorator implements Component{
         $this->component = $component;
     }
 }
+
 class ConcreteDecoratorA extends Decorator{
     public $addedState = 1; // 没什么实际意义的属性，只是区别于ConcreteDecoratorB
 

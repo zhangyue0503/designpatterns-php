@@ -1,175 +1,346 @@
-# PHP设计模式之原型模式
+# PHP设计模式之命令模式
 
-原型模式其实更形象的来说应该叫克隆模式。它主要的行为是对对象进行克隆，但是又把被克隆的对象称之为最初的原型，于是，这个模式就这样被命名了。说真的，从使用方式来看真的感觉叫克隆模式更贴切一些。
+命令模式，也称为动作或者事务模式，很多教材会用饭馆来举例。作为顾客的我们是命令的下达者，服务员是这个命令的接收者，菜单是这个实际的命令，而厨师是这个命令的执行者。那么，这个模式解决了什么呢？当你要修改菜单的时候，只需要和服务员说就好了，她会转达给厨师，也就是说，我们实现了顾客和厨师的解耦。也就是调用者与实现者的解耦。当然，很多设计模式可以做到这一点，但是命令模式能够做到的是让一个命令接收者实现多个命令（服务员下单、拿酒水、上菜），或者把一条命令转达给多个实现者（热菜厨师、凉菜厨师、主食师傅）。这才是命令模式真正发挥的地方！！
 
 ## Gof类图及解释
 
-***GoF定义：用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象***
+***GoF定义：将一个请求封装为一个对象，从而使你可用不同的请求对客户进行参数化；对请求排队或记录请求日志，以及支持可撤消的操作***
 
 > GoF类图
 
-![原型模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/08.prototype/img/prototype.jpg)
+![命令模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/09.command/img/command.jpg)
 
 
 > 代码实现
 
 ```php
-abstract class Prototype
+class Invoker
 {
-    public $v = 'clone' . PHP_EOL;
-
-    public function __construct()
+    public $command;
+    
+    public function __construct($command)
     {
-        echo 'create' . PHP_EOL;
+        $this->command = $command;
     }
 
-    abstract public function __clone();
+    public function exec()
+    {
+        $this->command->execute();
+    }
 }
 ```
 
-首先我们通过模拟的方式定义了一个原型，这里主要是模拟了__clone()这个方法。其实这是PHP自带的一个魔术方法，根本是不需要我们去进行定义的，只需要在原型类中进行实现就可以了。当外部使用clone关键字进行对象克隆时，直接就会进入这个魔术方法中。在这个魔术方法里面我们可以对属性进行处理，特别是针对引用属性进行一些独特的处理。在这个例子中，我们只使用了一个值类型的变量。无法体现出引用类型的问题，我们将在后面的实例中演示对引用类型变量的处理。
+首先我们定义一个命令的接收者，或者说是命令的请求者更恰当。类图中的英文定义这个单词是“祈求者”。也就是由它来发起和操作命令。
 
 ```php
-class ConcretePrototype1 extends Prototype
+abstract class Command
 {
-    public function __clone()
+    protected $receiver;
+
+    public function __construct(Receiver $receiver)
     {
+        $this->receiver = $receiver;
     }
+
+    abstract public function execute();
 }
 
-class ConcretePrototype2 extends Prototype
+class ConcreteCommand extends Command
 {
-    public function __clone()
+    public function execute()
     {
+        $this->receiver->action();
     }
 }
 ```
 
-模拟的具体实现的原型，其实就是主要去具体的实现__clone()方法。后面我们看具体的例子时再说明。
+接下来是命令，也就是我们的“菜单”。这个命令的作用是为了定义真正的执行者是谁。
 
 ```php
-class Client
+class Receiver
 {
-    public function operation()
-    {
-        $p1 = new ConcretePrototype1();
-        $p2 = clone $p1;
+    public $name;
 
-        echo $p1->v;
-        echo $p2->v;
+    public function __construct($name)
+    {
+        $this->name = $name;
+    }
+
+    public function action()
+    {
+        echo $this->name . '命令执行了！', PHP_EOL;
     }
 }
-
-$c = new Client();
-$c->operation();
 ```
 
-客户端使用clone来复制$p1，可以看到$p2也具有相同的$v属性。
+接管者，也就是执行者，真正去执行命令的人。
 
-- 原型模式看似就是复制了一个相同的对象，但是请注意，复制的时候，__construct()方法并没有被调用，也就是当你运行这段代码的时候，create只输出了一次。这也就带出了原型模式最大的一个特点——**减少创建对象时的开销**。
-- 基于上述特点，我们可以快速的复制大量相同的对象，比如要给一个数组中塞入大量相同的对象时。
-- 复制出来的对象中如果都是值类型的属性，我们可以任意修改，不会对原型产生影响。而如果有引用类型的变量，则需要在__clone()方法进行一些处理，否则修改了复制对象的引用变量中的内容，会对原型对象中的内容有影响。
+```php
+// 准备执行者
+$receiverA = new Receiver('A');
 
-*我们的手机操作系统（也可以想象一下PC电脑的操作系统），都是怎样安装到设备中呢？其实都是不停的复制拷贝最初的那一套系统。用微软的例子非常好说明这个问题，当年微软能够成为一个帝国，其实也是因为他不停的将winodws操作系统拷贝复制到光盘中，然后卖给千家万户（当然，这里没中国什么事儿）。而中国市场呢，大量的高手破解了windows之后也是由这一份文件不停的复制拷贝才装到了我们的电脑中。手机、智能设备等各类产品的操作系统、软件都是如此。一次开发无限拷贝正是软件行业暴利的原因。毕竟我们的系统也是由不少的工程师日以继夜的996在Android原生系统的基础上开发出来的，赶紧不断的复制到即将出厂的手机上吧！！*
+// 准备命令
+$command = new ConcreteCommand($receiverA);
 
-**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/08.prototype/source/prototype.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/08.prototype/source/prototype.php)**
+// 请求者
+$invoker = new Invoker($command);
+$invoker->exec();
+```
 
-## 实例
+客户端的调用，我们要联系好执行者也就是挑有好厨子的饭馆（Receiver），然后准备好命令也就是菜单（Command），最后交给服务员（Invoker）。
 
-同样还是拿手机来说事儿，这次我们是根据不同的运营商需要去开发一批定制机，也就是套餐机。这批手机说实话都并没有什么不同，大部分都是相同的配置，但是运营商系统不同，而且偶尔有一些型号的CPU和内存也可能存在不同。这个时候，我们就可以用原型模式来进行快速的复制并且只修改一部分不相同的地方啦。
+- 其实这个饭店的例子已经非常清晰了，对于命令模式真是完美的解析
+- 那说好的可以下多份订单或者给多个厨师呢？别急，下面的代码帮助我们解决这个问题
 
-> 原型模式生产手机类图
-
-![原型模式生产手机](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/08.prototype/img/prototype-phone.jpg)
-
-
-**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/08.prototype/source/prototype-phone.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/08.prototype/source/prototype-phone.php)**
+**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/09.command/source/command.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/09.command/source/command.php)**
 
 ```php
 <?php
-interface ServiceProvicer
-{
-    public function getSystem();
-}
 
-class ChinaMobile implements ServiceProvicer
+class Invoker
 {
-    public $system;
-    public function getSystem(){
-        return "中国移动" . $this->system;
-    }
-}
-class ChinaUnicom implements ServiceProvicer
-{
-    public $system;
-    public function getSystem(){
-        return "中国联通" . $this->system;
-    }
-}
+    private $command = [];
 
-class Phone 
-{
-    public $service_province;
-    public $cpu;
-    public $rom;
-}
-
-class CMPhone extends Phone
-{
-    function __clone()
+    public function setCommand(Command $command)
     {
-        // $this->service_province = new ChinaMobile();
+        $this->command[] = $command;
     }
-}
 
-class CUPhone extends Phone
-{
-    function __clone()
+    public function exec()
     {
-        $this->service_province = new ChinaUnicom();
+        if(count($this->command) > 0){
+            foreach ($this->command as $command) {
+                $command->execute();
+            }
+        }
+    }
+
+    public function undo()
+    {
+        if(count($this->command) > 0){
+            foreach ($this->command as $command) {
+                $command->undo();
+            }
+        }
     }
 }
 
+abstract class Command
+{
+    protected $receiver;
+    protected $state;
+    protected $name;
 
-$cmPhone = new CMPhone();
-$cmPhone->cpu = "1.4G";
-$cmPhone->rom = "64G";
-$cmPhone->service_province = new ChinaMobile();
-$cmPhone->service_province->system = 'TD-CDMA';
-$cmPhone1 = clone $cmPhone;
-$cmPhone1->service_province->system = 'TD-CDMA1';
+    public function __construct(Receiver $receiver, $name)
+    {
+        $this->receiver = $receiver;
+        $this->name = $name;
+    }
 
-var_dump($cmPhone);
-var_dump($cmPhone1);
-echo $cmPhone->service_province->getSystem();
-echo $cmPhone1->service_province->getSystem();
+    abstract public function execute();
+}
+
+class ConcreteCommand extends Command
+{
+    public function execute()
+    {
+        if (!$this->state || $this->state == 2) {
+            $this->receiver->action();
+            $this->state = 1;
+        } else {
+            echo $this->name . '命令正在执行，无法再次执行了！', PHP_EOL;
+        }
+
+    }
+    
+    public function undo()
+    {
+        if ($this->state == 1) {
+            $this->receiver->undo();
+            $this->state = 2;
+        } else {
+            echo $this->name . '命令未执行，无法撤销了！', PHP_EOL;
+        }
+    }
+}
+
+class Receiver
+{
+    public $name;
+    public function __construct($name)
+    {
+        $this->name = $name;
+    }
+    public function action()
+    {
+        echo $this->name . '命令执行了！', PHP_EOL;
+    }
+    public function undo()
+    {
+        echo $this->name . '命令撤销了！', PHP_EOL;
+    }
+}
+
+// 准备执行者
+$receiverA = new Receiver('A');
+$receiverB = new Receiver('B');
+$receiverC = new Receiver('C');
+
+// 准备命令
+$commandOne = new ConcreteCommand($receiverA, 'A');
+$commandTwo = new ConcreteCommand($receiverA, 'B');
+$commandThree = new ConcreteCommand($receiverA, 'C');
+
+// 请求者
+$invoker = new Invoker();
+$invoker->setCommand($commandOne);
+$invoker->setCommand($commandTwo);
+$invoker->setCommand($commandThree);
+$invoker->exec();
+$invoker->undo();
+
+// 新加一个单独的执行者，只执行一个命令
+$invokerA = new Invoker();
+$invokerA->setCommand($commandOne);
+$invokerA->exec();
+
+// 命令A已经执行了，再次执行全部的命令执行者，A命令的state判断无法生效
+$invoker->exec();
+```
+
+- 这一次我们一次性解决了多个订单、多位厨师的问题，并且还顺便解决了如果下错命令了，进行撤销的问题
+- 可以看出来，命令模式将调用操作的对象与知道如何实现该操作的对象实现了解耦
+- 这种多命令多执行者的实现，有点像**组合模式**的实现
+- 在这种情况下，增加新的命令，即不会影响执行者，也不会影响客户。当有新的客户需要新的命令时，只需要增加命令和请求者即可。即使有修改的需求，也只是修改请求者。
+- Laravel框架的事件调度机制中，除了观察者模式外，也很明显的能看出命令模式的影子
+
+*我们的手机工厂和餐厅其实并没有什么两样，当我们需要代工厂来制作手机时，也是先下订单，这个订单就可以看做是命令。在这个订单中，我们会规定好需要用到的配件，什么型号的CPU，什么型号的内存，预装什么系统之类的。然后代工厂的工人们就会根据这个订单来进行生产。在这个过程中，我不用关心是某一个工人还是一群工人来执行这个订单，我只需要将这个订单交给和我们对接的人就可以了，然后只管等着手机生产出来进行验收咯！！*
+
+**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/09.command/source/command-up.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/09.command/source/command-up.php)**
+
+## 实例
+
+短信功能又回来了，我们发现除了工厂模式外，命令模式貌似也是一种不错的实现方式哦。在这里，我们依然是使用那几个短信和推送的接口，话不多说，我们用命令模式再来实现一个吧。当然，有兴趣的朋友可以接着实现我们的短信撤回功能哈，想想上面的命令取消是怎么实现的。
+
+> 短信发送类图
+
+![短信发送命令模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/08.prototype/img/prototype-phone.jpg)
 
 
-$cuPhone = new CUPhone();
-$cuPhone->cpu = "1.4G";
-$cuPhone->rom = "64G";
-$cuPhone->service_province = new ChinaUnicom();
-$cuPhone->service_province->system = 'WCDMA';
-$cuPhone1 = clone $cuPhone;
-$cuPhone1->rom = "128G";
-$cuPhone1->service_province->system = 'WCDMA1';
+**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/09.command/source/command-message.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/09.command/source/command-message.php)**
 
-var_dump($cuPhone);
-var_dump($cuPhone1);
-echo $cuPhone->service_province->getSystem();
-echo $cuPhone1->service_province->getSystem();
+```php
+<?php
+
+class SendMsg
+{
+    private $command = [];
+
+    public function setCommand(Command $command)
+    {
+        $this->command[] = $command;
+    }
+    
+    public function send($msg)
+    {
+        foreach ($this->command as $command) {
+            $command->execute($msg);
+        }
+    }
+}
+
+abstract class Command
+{
+    protected $receiver = [];
+
+    public function setReceiver($receiver)
+    {
+        $this->receiver[] = $receiver;
+    }
+
+    abstract public function execute($msg);
+}
+
+class SendAliYun extends Command
+{
+    public function execute($msg)
+    {
+        foreach ($this->receiver as $receiver) {
+            $receiver->action($msg);
+        }
+    }
+}
+
+class SendJiGuang extends Command
+{
+    public function execute($msg)
+    {
+        foreach ($this->receiver as $receiver) {
+            $receiver->action($msg);
+        }
+    }
+}
+
+class SendAliYunMsg
+{
+    public function action($msg)
+    {
+        echo '【阿X云短信】发送：' . $msg, PHP_EOL;
+    }
+}
+
+class SendAliYunPush
+{
+    public function action($msg)
+    {
+        echo '【阿X云推送】发送：' . $msg, PHP_EOL;
+    }
+}
+
+class SendJiGuangMsg
+{
+    public function action($msg)
+    {
+        echo '【极X短信】发送：' . $msg, PHP_EOL;
+    }
+}
+
+class SendJiGuangPush
+{
+    public function action($msg)
+    {
+        echo '【极X推送】发送：' . $msg, PHP_EOL;
+    }
+}
+
+$aliMsg = new SendAliYunMsg();
+$aliPush = new SendAliYunPush();
+$jgMsg = new SendJiGuangMsg();
+$jgPush = new SendJiGuangPush();
+
+$sendAliYun = new SendAliYun();
+$sendAliYun->setReceiver($aliMsg);
+$sendAliYun->setReceiver($aliPush);
+
+$sendJiGuang = new SendJiGuang();
+$sendAliYun->setReceiver($jgMsg);
+$sendAliYun->setReceiver($jgPush);
+
+$sendMsg = new SendMsg();
+$sendMsg->setCommand($sendAliYun);
+$sendMsg->setCommand($sendJiGuang);
+
+$sendMsg->send('这次要搞个大活动，快来注册吧！！');
 
 ```
 
 > 说明
 
-- 打印了很多东西呀，不过主要的还是看看移动手机，也就是CMPhone中的__clone()方法，我们没有重新去初始化一个新对象。这时，复制的$cmPhone1对象中的service_province和$cmPhone中的是同一个对象。没错，这就是引用的复制问题。引用只是复制了引用的地址，他们指向的是同一个对象。当$cmPhone1修改service_province对象里面的属性内容时，$cmPhone里面的service_province对象里面的属性也跟着改变了。
-- 在CUPhone中，我们重新new了一个新的service_province对象。这次外面的$cuPhone1对该对象中的属性修改时就不会影响$cuPhone中引用对象的值。
-- 原型模式中最主要的就是要注意上述两点，而普通的值属性会直接进行复制，不会产生这个问题。这里又牵涉出另外两个概念：**浅复制**和**深复制**
-- 浅复制，是指被复制对象的所有变量都含有与原来对象相同的值，而所有的对其他对象的引用都仍然指向原来的对象
-- 深复制把引用对象的变量指向复制过的新对象，而不是原有的被引用的对象
-- 关于引用和值的问题，我们将在其他的文章中进行讲解，请关注微信或掘金号
+- 在这个例子中，依然是多命令多执行者的模式
+- 可以将这个例子与抽象工厂进行对比，同样的功能使用不同的设计模式来实现，但是要注意的是，抽象工厂更多的是为了生产对象返回对象，而命令模式则是一种行为的选择
+- 我们可以看出命令模式非常适合形成命令队列，多命令让命令可以一条一条执行下去
+- 它允许接收的一方决定是否要否决请求，Receiver做为实现者拥有更多的话语权
 
 ## 下期看点
 
-原型模式虽然平常用得不多，但是学习之后发现还真是挺有用的，特别是需要大量的重复对象时，可以大大节约新建对象的资源需求，以后还是需要多多练习早日应用在实际的业务场景中。下一个又会是谁呢？别急别急，先去下个馆子，厨师、服务员、顾客，这三个要素就能组成一个神奇的模式：**命令模式**
+命令模式说了很多，不过确实是很好玩的一个模式，下一场我们休息休息，来一个比较简单的模式，甚至是比我们的**简单工厂**还要简单的一个模式，那就是**策略模式**

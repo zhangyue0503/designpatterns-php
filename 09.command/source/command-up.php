@@ -94,7 +94,7 @@ $commandOne = new ConcreteCommand($receiverA, 'A');
 $commandTwo = new ConcreteCommand($receiverA, 'B');
 $commandThree = new ConcreteCommand($receiverA, 'C');
 
-// 执行者
+// 请求者
 $invoker = new Invoker();
 $invoker->setCommand($commandOne);
 $invoker->setCommand($commandTwo);

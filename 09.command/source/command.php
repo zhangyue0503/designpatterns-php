@@ -56,6 +56,6 @@ $receiverA = new Receiver('A');
 // 准备命令
 $command = new ConcreteCommand($receiverA);
 
-// 执行者
+// 请求者
 $invoker = new Invoker($command);
 $invoker->exec();

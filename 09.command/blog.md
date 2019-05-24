@@ -224,7 +224,7 @@ $invoker->exec();
 
 > 短信发送类图
 
-![短信发送命令模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/08.prototype/img/prototype-phone.jpg)
+![短信发送命令模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/09.command/img/command-message.jpg)
 
 
 **完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/09.command/source/command-message.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/09.command/source/command-message.php)**

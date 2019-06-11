@@ -70,24 +70,14 @@ $context->ContextInterface();
 
 最后，在客户端按需调用合适的算法。
 
-```php
-// 准备执行者
-$receiverA = new Receiver('A');
+- 是不是非常简单的一个设计模式。大家有没有发现这个模式和我们最早讲过的**简单工厂**非常类似
+- 那么他们的区别呢？
+- 工厂相关的模式属于创建型模式，顾名思义，这种模式是用来创建对象的，返回的是new出来的对象。要调用对象的什么方法是由客户端来决定的
+- 而策略模式属性行为型模式，通过执行上下文，将要调用的函数方法封装了起来，客户端只需要调用执行上下文的方法就可以了
+- 在这里，我们会发现，需要客户端来实例化具体的算法类，貌似还不如**简单工厂**好用，既然这样的话，大家何不尝试一下结合工厂和策略模式一起来实现一个模式呢？
+- 作为思考题将这个实现留给大家，提示：将Context类的__construct变成一个简单工厂方法
 
-// 准备命令
-$command = new ConcreteCommand($receiverA);
-
-// 请求者
-$invoker = new Invoker($command);
-$invoker->exec();
-```
-
-客户端的调用，我们要联系好执行者也就是挑有好厨子的饭馆（Receiver），然后准备好命令也就是菜单（Command），最后交给服务员（Invoker）。
-
-- 其实这个饭店的例子已经非常清晰了，对于命令模式真是完美的解析
-- 那说好的可以下多份订单或者给多个厨师呢？别急，下面的代码帮助我们解决这个问题
-
-**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/09.command/source/command.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/09.command/source/command.php)**
+**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/10.strategy/source/strategy.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/10.strategy/source/strategy.php)**
 
 ```php
 <?php

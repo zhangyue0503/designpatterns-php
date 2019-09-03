@@ -8,7 +8,7 @@
 
 > GoF类图
 
-![代理模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/11.chain-of-responsiblity/img/chain.jpg)
+![代理模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/12.proxy/img/proxy.jpg)
 
 
 > 代码实现
@@ -56,7 +56,7 @@ $proxy->Request();
 
 **
 
-**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/10.strategy/source/strategy.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/10.strategy/source/strategy.php)**
+**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/12.proxy/source/proxy.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/12.proxy/source/proxy.php)**
 
 ## 实例
 
@@ -64,10 +64,10 @@ $proxy->Request();
 
 > 短信发送类图
 
-![短信发送代理模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/11.chain-of-responsiblity/img/chain-filter-message.jpg)
+![短信发送代理模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/12.proxy/img/proxy-msg.jpg)
 
 
-**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/11.chain-of-responsiblity/source/chain-filter-message.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/11.chain-of-responsiblity/source/chain-filter-message.php)**
+**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/12.proxy/source/proxy-msg.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/12.proxy/source/proxy-msg.php)**
 
 ```php
 <?php
@@ -115,4 +115,4 @@ $sendMessage->Send();
 
 ## 下期看点
 
-代理模式说简单也简单，说复杂的话也很复杂，总之还是根据业务形态来决定，模式真的只是为了解决问题而生的，问题能解决了，你也可以叫他经济人模式嘛，你说是不是！！下一篇我们一起学习*门面模式*（又可以顺便讲Laravel里的Facade咯，激动不！）
+代理模式说简单也简单，说复杂的话也很复杂，总之还是根据业务形态来决定，模式真的只是为了解决问题而生的，问题能解决了，你也可以叫他经济人模式嘛，你说是不是！！下一篇我们一起学习*享元模式*，听着又很高大上吧！！

@@ -8,7 +8,7 @@
 
 > GoF类图
 
-![模式]()
+![享元模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/13.flyweights/img/flyweights.jpg)
 
 
 > 代码实现
@@ -84,7 +84,7 @@ $flD->operation(--$extrinsicState);
 
 *还是说到科技以换壳为本这件事上。毕竟，大家都还是喜欢各种颜色的手机来彰显自己的个性。之前说过，如果每种颜色我们都要做一条生产线的话那岂不是一项巨的投入。还好，每个型号我们的工厂（享元工厂）只生产最基本的背景壳（对象），然后通过专门的印刷线（状态变化）来进行上色不就好啦！嗯，下一款Iphone早晚也会模仿我们的，看来我们得先把各种金、各种土豪色集齐才行，说不定还能召唤神龙呢！！*
 
-**完整代码：[]()**
+**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/13.flyweights/source/flyweights.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/13.flyweights/source/flyweights.php)**
 
 ## 实例
 
@@ -92,10 +92,10 @@ $flD->operation(--$extrinsicState);
 
 > 短信发送类图
 
-![短信发送享元模式版]()
+![短信发送享元模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/13.flyweights/img/flyweights-message.jpg)
 
 
-**完整源码：[]()**
+**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/13.flyweights/source/flyweights-message.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/13.flyweights/source/flyweights-message.php)**
 
 ```php
 
@@ -257,6 +257,8 @@ echo $factory->GetMessageCount(), PHP_EOL; // 4
 
 - 代码有点多吧，但其实一共是两种类型的类，生成了四种对象。这里每个类不同的对象是根据模板来区分的
 - 这样的组合还是比较方便的吧，再结合别的模式将工厂这里优化一下，嗯，前途不可限量，你们可以想想哦！
+- 享元模式适用于系统中存在大量的相似对象以及需要缓冲池的场景，能够降低内存占用，提高效率，但会增加复杂度，需要分享内外部状态
+- 最主要的特点是有一个唯一标识，当内存中已经有这个对象了，直接返回对象，不用再去创建了
 
 ## 下期看点
 

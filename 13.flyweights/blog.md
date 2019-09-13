@@ -14,7 +14,7 @@
 > 代码实现
 
 ```php
-nterface Flyweight
+interface Flyweight
 {
     public function operation($extrinsicState) : void;
 }

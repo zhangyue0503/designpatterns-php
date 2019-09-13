@@ -8,7 +8,7 @@
 
 > GoF类图
 
-![组合模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/13.flyweights/img/flyweights.jpg)
+![组合模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/14.composite/img/composite.jpg)
 
 
 > 代码实现
@@ -98,7 +98,7 @@ class Leaf extends Component
 
 *接着文章最开头的例子来说，在我们的组织架构中，一项任务下达到最底的人员时，会经历多个层级。我还是比较喜欢传统一起的企业管理方式。通常是一名总监对应多个主管，一名主管对应多位经理，一位经理对应多位组长，一名组长对应多名员工。当一个通知下发时，每一层级的工作人员都要做出回应，并将通知继续下发到下属员工那里，同时从下属哪里获得反馈。这样，我们就不知不觉地在实践中完成了一次组合模式的应用。突然感觉自己棒棒哒，感觉人生已经到达了巅峰！！*
 
-**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/13.flyweights/source/flyweights.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/13.flyweights/source/flyweights.php)**
+**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/14.composite/source/composite.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/14.composite/source/composite.php)**
 
 ## 实例
 
@@ -106,10 +106,10 @@ class Leaf extends Component
 
 > 短信发送类图
 
-![短信发送组合模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/13.flyweights/img/flyweights-message.jpg)
+![短信发送组合模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/14.composite/img/composite-msg.jpg)
 
 
-**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/13.flyweights/source/flyweights-message.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/13.flyweights/source/flyweights-message.php)**
+**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/14.composite/source/composite-msg.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/14.composite/source/composite-msg.php)**
 
 ```php
 <?php

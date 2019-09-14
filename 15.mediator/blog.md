@@ -8,7 +8,7 @@
 
 > GoF类图
 
-![组合模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/14.composite/img/composite.jpg)
+![中介者模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/15.mediator/img/mediator.jpg)
 
 
 > 代码实现
@@ -98,7 +98,7 @@ $c2->Send("没有呢，你打算请客？");
 
 *作为一名企业家，深知项目管理的重要性，而项目经理，在很多场合下就是一名中介者的角色。从组织角度看，一个项目的开始和结束，作为老板的我并不需要关心是由谁来具体编码实现，我要沟通的人只是项目经理。同理，其他辅助部门包括财务、人事、行政等，他们也不关心谁来写代码，而只需要和项目经理交流了解项目的情况以及需要配合的内容。在项目团队中，写代码的人呢？也不需要知道谁来给他发工资或者考勤问题出在哪里，这一切也交给项目经理解决就好了。所以说，项目经理负责制的项目开发，就是中介者模式的典型应用。我们的手机厂之所以发展的如此之快，也多亏了这些项目经理们，晚上请他们吃大餐去咯~~~*
 
-**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/14.composite/source/composite.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/14.composite/source/composite.php)**
+**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/15.mediator/source/mediator.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/15.mediator/source/mediator.php)**
 
 ## 实例
 
@@ -106,10 +106,10 @@ $c2->Send("没有呢，你打算请客？");
 
 > 聊天室类图
 
-![聊天室功能中介者模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/14.composite/img/composite-msg.jpg)
+![聊天室功能中介者模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/15.mediator/img/mediator-chat.jpg)
 
 
-**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/14.composite/source/composite-msg.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/14.composite/source/composite-msg.php)**
+**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/15.mediator/source/mediator-webchat.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/15.mediator/source/mediator-webchat.php)**
 
 ```php
 <?php

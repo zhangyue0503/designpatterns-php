@@ -86,7 +86,7 @@ foreach ($requests as $request) {
 
 *我们一直在说手机制造这个行业，之前我们一直是交给代工厂来进行手机的组装生产，这回，我们自己建立了一条流水线。而这个流水线，就非常像责任链模式，怎么说呢，从一台手机的装配说起。有操作员将手机主板（初始请求）放到流水线上，然后工人开始添加内存、CPU、摄像头（各种责任链条类进行处理），期间也会经过测试和调整以达到最佳出厂性能。最后拼装成一台完整的手机交到客户的手中，这种工作流是不是和责任链非常相似呢！！*
 
-**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/10.strategy/source/strategy.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/10.strategy/source/strategy.php)**
+**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/11.chain-of-responsiblity/source/chain.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/11.chain-of-responsiblity/source/chain.php)**
 
 ## 实例
 
@@ -179,6 +179,7 @@ echo PHP_EOL;
 - 在这个例子中，我们对消息内容进行了各种处理。当有新的需求产生时，我们只需要加入新的过滤类，然后调整客户端的执行顺序即可
 - 使用了next来标识下一步的操作，使用过Laravel的同学一定马上联想到了中间件。当然，用过Node开发服务器的同学更是不会陌生，早就对这个设计模式了如指掌了。
 - 责任链的运用真的非常广泛，在各种工作流软件及中间件组件中都可以看到，同时配合Linux下的管道思想，可以把这个模式的优势发挥到极致
+- Laravel的中间件，有兴趣的朋友翻翻源码，典型的责任链模式的应用哦
 
 ## 下期看点
 

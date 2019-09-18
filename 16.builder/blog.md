@@ -8,7 +8,7 @@
 
 > GoF类图
 
-![中介者模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/15.mediator/img/mediator.jpg)
+![建造者模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/16.builder/img/builder.jpg)
 
 
 > 代码实现
@@ -124,14 +124,14 @@ $p2->Show();
 最后看看我们的实现，是不是非常简单，准备好工程队，准备好不同的建造者，然后交给工程队去生产就好啦！！
 
 - 其实这个模式要解决的最主要问题就是一个类可能有非常多的配置、属性，这些配置、属性也并不全是必须要配置的，一次性的实例化去配置这些东西非常麻烦。这时就可以考虑让这些配置、属性变成一个一个可随时添加的部分。通过不同的属性组合拿到不同的对象。
-- 上面那一条，在GoF那里的原文是：它使你改变一个产品的内部表示；它将构造代码和表示代码分开；它使你可对构造过程进行更精细的控制。
+- 上面那一条，在GoF那里的原文是：它使你改变一个产品的内部表示；它将构造代码和表示代码分开；它使你可以对构造过程进行更精细的控制。
 - 再说得简单一点，对象太复杂，我们可以一部分一部分的拼装它！
 - 了解过一点Android开发的一定不会陌生，创建对话框对象AlterDialog.builder
 - Laravel中，数据库组件也使用了建造者模式，你可以翻看下源码中Database\Eloquent和Database\Query目录中是否都有一个Builder.php
 
 *大家都知道，手机组装是一件复杂的过程，于是，不同型号的手机我们都有对应的图纸（Builder），将图纸和配件交给流水线上的工人（Director），他们就会根据图纸使用配件来生产出我们所需要的各种不同型号的手机（Product）。很明显，我们都是伟大的建造者，为我们的产业添砖加瓦！！！*
 
-**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/15.mediator/source/mediator.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/15.mediator/source/mediator.php)**
+**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/16.builder/source/builder.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/16.builder/source/builder.php)**
 
 ## 实例
 
@@ -139,10 +139,10 @@ $p2->Show();
 
 > 对话框类图
 
-![对话框功能建造者模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/15.mediator/img/mediator-chat.jpg)
+![对话框功能建造者模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/16.builder/img/builder-dialog.jpg)
 
 
-**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/15.mediator/source/mediator-webchat.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/15.mediator/source/mediator-webchat.php)**
+**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/16.builder/source/builder-dialog.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/16.builder/source/builder-dialog.php)**
 
 ```php
 <?php
@@ -266,4 +266,4 @@ $d2->Construct('窗口2', '确认要执行操作B吗？')->GetDialog()->ShowDial
 
 ## 下期看点
 
-建造者模式真的非常常用，虽说我们平常写的代码中可能用得比较少，但在很多框架或者大型系统的架构中都会有它的身影。虽说我们希望类都是简单的，小巧的，但大型类的出现总是不可避免的，这个时候，建造者模式就能发挥它的作用，让我们能够轻松的构建复杂、大型的对象。好吧，不要忘了我们的文章还在继续，如果喜欢的话要记得关注公众号或者掘金主页哦，如果怕忘了，不妨写个**备忘录**哦。
+建造者模式真的非常常用，虽说我们平常写的代码中可能用得比较少，但在很多框架或者大型系统的架构中都会有它的身影。我们希望类都是简单的，小巧的，但大型类的出现总是不可避免的，这个时候，建造者模式就能发挥它的作用，让我们能够轻松的构建复杂、大型的对象。好吧，不要忘了我们的文章还在继续，如果喜欢的话要记得关注公众号或者掘金主页哦，如果怕忘了，不妨写个**备忘录**哦。

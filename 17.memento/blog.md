@@ -8,7 +8,7 @@
 
 > GoF类图
 
-![备忘录模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/16.builder/img/builder.jpg)
+![备忘录模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/17.memento/img/memento.jpg)
 
 
 > 代码实现
@@ -102,7 +102,7 @@ $o->ShowState();
 
 *Mac的时光机功能大家有了解过吧，可以将电脑恢复到某一时间点的状态下。其实windows的ghost也是类似的功能。我们的手机操作系统上也决定开发这样的一个功能。当我们点击时光机备份时，将手机上所有的资料、数据、状态信息都压缩保存起来，如果用户允许的话，我们将这个压缩包上传到我们的云服务器上避免占用用户的手机内存，否则就只能保存到用户的手机内存中了。当用户的手机需要恢复到某个时间点，我们将所有的时光机备份列出，用户只需要用手指轻轻一按就可以把手机系统状态恢复到当时的样子了，是不是非常方便！！*
 
-**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/16.builder/source/builder.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/16.builder/source/builder.php)**
+**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/17.memento/source/memento.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/17.memento/source/memento.php)**
 
 ## 实例
 
@@ -110,10 +110,10 @@ $o->ShowState();
 
 > 短信发送类图
 
-![短信发送功能备忘录模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/16.builder/img/builder-dialog.jpg)
+![短信发送功能备忘录模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/17.memento/img/memento-message.jpg)
 
 
-**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/16.builder/source/builder-dialog.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/16.builder/source/builder-dialog.php)**
+**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/17.memento/source/memento-message.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/17.memento/source/memento-message.php)**
 
 ```php
 <?php

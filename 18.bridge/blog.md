@@ -8,7 +8,7 @@
 
 > GoF类图
 
-![桥接模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/17.memento/img/memento.jpg)
+![桥接模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/18.bridge/img/bridge.jpg)
 
 
 > 代码实现
@@ -83,7 +83,7 @@ $ra->Operation();
 
 *我们的手机有不同的型号，每个型号又要生产大致相同但不同的配件。比如X1手机壳、贴膜、耳机；X2的手机壳、贴膜、耳机等。受限于成本的问题，我们不会给每一个型号的手机都去生产完全不一样的配套配件。而是去尽量使用外部通用的配件（Implementor），让每一种型号的手机（Abstraction）去进行组合（Bridge），搭配售卖给消费者。这样，才不至于让我们的手机品牌太早的消耗完融资关门大吉。看来，做企业和学设计模式还真是有很多相关之处哦！！*
 
-**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/17.memento/source/memento.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/17.memento/source/memento.php)**
+**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/18.bridge/source/bridge.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/18.bridge/source/bridge.php)**
 
 ## 实例
 
@@ -91,10 +91,10 @@ $ra->Operation();
 
 > 短信发送类图
 
-![短信发送功能桥接模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/17.memento/img/memento-message.jpg)
+![短信发送功能桥接模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/18.bridge/img/bridge-message.jpg)
 
 
-**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/17.memento/source/memento-message.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/17.memento/source/memento-message.php)**
+**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/18.bridge/source/bridge-message.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/18.bridge/source/bridge-message.php)**
 
 ```php
 <?php

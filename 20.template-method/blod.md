@@ -8,7 +8,7 @@
 
 > GoF类图
 
-![模板方法模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/19.facade/img/facade.jpg)
+![模板方法模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/20.template-method/img/%20template-method.jpg)
 
 
 > 代码实现
@@ -75,7 +75,7 @@ $c->TemplateMethod();
 
 *在公司中，我非常的推崇敏捷式的项目管理，当然，这里也不是说传统的项目管理有多么不好，只是敏捷更适合我们这种短平快的公司。在敏捷中，我们采用的是Scurm框架，它其实就是一个模板。它定义了四种会议、三种人员、三个工具。在每个项目的具体实现中，我们都会遵守这些规则，但具体的实现又不会一样。比如有时我们是一周一个迭代，有时是一个月一个迭代。有时我们不需要回顾会议，而是将回顾和评审会议放在了一起进行。不管怎么样，我们会在Scurm的基础上进行灵活的项目开发。而做为领导的我，只需要在每个项目中调取Scurm的基本流程就可以了。所以说，公司的强大和大家的学习是分不开的，好用的东西当然要时刻学习分享并应用啦！！*
 
-**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/19.facade/source/facade.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/19.facade/source/facade.php)**
+**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/20.template-method/source/template-method.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/20.template-method/source/template-method.php)**
 
 ## 实例
 
@@ -83,10 +83,10 @@ $c->TemplateMethod();
 
 > 缓存类图
 
-![缓存模板方法模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/19.facade/img/facade-push.jpg)
+![缓存模板方法模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/20.template-method/img/%20template-method-cache.jpg)
 
 
-**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/19.facade/source/facade-push.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/19.facade/source/facade-push.php)**
+**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/20.template-method/source/template-method-cache.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/20.template-method/source/template-method-cache.php)**
 
 ```php
 <?php

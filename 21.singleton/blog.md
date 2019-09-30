@@ -8,7 +8,7 @@
 
 > GoF类图
 
-![单例模式]()
+![单例模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/21.singleton/img/singleton.jpg)
 
 
 > 代码实现
@@ -69,7 +69,7 @@ echo $singletonB->GetSigletonData(), PHP_EOL;
 
 *公司越来越大，但我们的全部公司的花名册都只有一份（单例类），保存在我们的OA系统中。怕的就是各个部门拥有各自己的花名册后会产生混乱，比如更新不及时漏掉了其他部门新入职或者离职的员工。其他部门在需要的时候，可以去查看全部的花名册，也可以在全部花名册的基础上建立修改自己部门的部分。但是在OA系统中，其实他们修改的还是那一份总的花名册中的内容，大家维护的其实都是保存在OA系统服务器中的那唯一一份真实的花名册*
 
-**完整代码：[]()**
+**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/21.singleton/source/singleton.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/21.singleton/source/singleton.php)**
 
 ## 实例
 
@@ -77,10 +77,10 @@ echo $singletonB->GetSigletonData(), PHP_EOL;
 
 > 缓存类图
 
-![缓存模板方法模式版]()
+![缓存模板方法模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/21.singleton/img/singleton-http.jpg)
 
 
-**完整源码：[]()**
+**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/21.singleton/source/singleton-http.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/21.singleton/source/singleton-http.php)**
 
 ```php
 <?php 

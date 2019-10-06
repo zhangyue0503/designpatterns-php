@@ -8,7 +8,7 @@
 
 > GoF类图
 
-![状态模式]()
+![状态模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/22.state/img/state.jpg)
 
 
 > 代码实现
@@ -79,7 +79,7 @@ $c->Request();
 
 *我们的手机系统内定制了自己的商城系统，可以在手机上方便的下单购买我们的商品。一个订单（Context）会有多种状态（State），比如未支付、已支付、订单完成、订单退款等等一大堆状态。我们把这些状态都放在了对应的状态类里去实现，不同的状态类都会再去调用该状态下一步的动作，比如已支付后就等待收货、退款后就等待买家填写物流单号等，这样，状态模式就在我们的商城中被灵活的运用起来咯！！*
 
-**完整代码：[]()**
+**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/22.state/source/state.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/22.state/source/state.php)**
 
 ## 实例
 
@@ -87,10 +87,10 @@ $c->Request();
 
 > 会员折扣图
 
-![会员折扣状态模式版]()
+![会员折扣状态模式版](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/22.state/img/state-member.jpg)
 
 
-**完整源码：[]()**
+**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/22.state/source/state-member.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/22.state/source/state-member.php)**
 
 ```php
 <?php

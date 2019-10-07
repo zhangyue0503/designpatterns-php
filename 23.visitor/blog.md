@@ -8,7 +8,7 @@
 
 > GoF类图
 
-![访问者模式]()
+![访问者模式](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/23.visitor/img/visitor.jpg)
 
 > 代码实现
 
@@ -134,7 +134,7 @@ $o->Accept($v2);
 
 *我们公司的账务，只有收入和支出两项（Element），但是不同的部门（Visitor）访问的时候会给出不同的内容。比如我查看的时候只需要查看每月或每季度的汇总数据即可，财务总监则需要详细的收支记录，而会计在做账时更是需要完整的明细。可见，公司的运营还真的是需要非常广泛的知识的，不仅是管理能力，账务知识也是必要了解的内容！！*
 
-**完整代码：[]()**
+**完整代码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/23.visitor/source/visitor.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/23.visitor/source/visitor.php)**
 
 ## 实例
 
@@ -142,10 +142,10 @@ $o->Accept($v2);
 
 > 访问者模式信息发送
 
-![访问者模式信息发送]()
+![访问者模式信息发送](https://raw.githubusercontent.com/zhangyue0503/designpatterns-php/master/23.visitor/img/visitor-msg.jpg)
 
 
-**完整源码：[]()**
+**完整源码：[https://github.com/zhangyue0503/designpatterns-php/blob/master/23.visitor/source/visitor-msg.php](https://github.com/zhangyue0503/designpatterns-php/blob/master/23.visitor/source/visitor-msg.php)**
 
 ```php
 <?php

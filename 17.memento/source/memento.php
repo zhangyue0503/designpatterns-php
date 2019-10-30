@@ -23,7 +23,6 @@ class Originator
     {
         echo $this->state, PHP_EOL;
     }
-
 }
 
 class Memento

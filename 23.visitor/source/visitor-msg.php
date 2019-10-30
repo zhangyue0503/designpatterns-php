@@ -1,43 +1,53 @@
 <?php
 
-interface ServiceVisitor{
-    function SendMsg(SendMessage $s);
+interface ServiceVisitor
+{
+    public function SendMsg(SendMessage $s);
     function PushMsg(PushMessage $p);
 }
 
-class AliYun implements ServiceVisitor{
-    public function SendMsg(SendMessage $s){
+class AliYun implements ServiceVisitor
+{
+    public function SendMsg(SendMessage $s)
+    {
         echo '阿里云发送短信！', PHP_EOL;
     }
-    public function PushMsg(PushMessage $p){
+    public function PushMsg(PushMessage $p)
+    {
         echo '阿里云推送信息！', PHP_EOL;
     }
 }
 
-class JiGuang implements ServiceVisitor{
-    public function SendMsg(SendMessage $s){
+class JiGuang implements ServiceVisitor
+{
+    public function SendMsg(SendMessage $s)
+    {
         echo '极光发送短信！', PHP_EOL;
     }
-    public function PushMsg(PushMessage $p){
+    public function PushMsg(PushMessage $p)
+    {
         echo '极光推送短信！', PHP_EOL;
     }
 }
 
-
-
-interface Message{
-    function Msg(ServiceVisitor $v);
+interface Message
+{
+    public function Msg(ServiceVisitor $v);
 }
 
-class PushMessage implements Message{
-    public function Msg(ServiceVisitor $v){
+class PushMessage implements Message
+{
+    public function Msg(ServiceVisitor $v)
+    {
         echo '推送脚本启动：';
         $v->PushMsg($this);
     }
 }
 
-class SendMessage implements Message{
-    public function Msg(ServiceVisitor $v){
+class SendMessage implements Message
+{
+    public function Msg(ServiceVisitor $v)
+    {
         echo '短信脚本启动：';
         $v->SendMsg($this);
     }

@@ -124,7 +124,7 @@
 
     微信公众号：[https://mp.weixin.qq.com/s/meIF_xSo4pHRYBon7tqvfw](https://mp.weixin.qq.com/s/meIF_xSo4pHRYBon7tqvfw)
 
-    掘金：[]()
+    掘金：[https://juejin.im/post/5d6ccba15188252e96191b41](https://juejin.im/post/5d6ccba15188252e96191b41)
     
 - 迭代器模式
 

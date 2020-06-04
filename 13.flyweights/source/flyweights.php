@@ -30,8 +30,10 @@ class FlyweightFactory
     public function getFlyweight($key) : Flyweight
     {
         if (!array_key_exists($key, $this->flyweights)) {
+            echo "create", PHP_EOL;
             $this->flyweights[$key] = new ConcreteFlyweight();
         }
+        var_dump($this->flyweights);
         return $this->flyweights[$key];
     }
 }
@@ -50,3 +52,6 @@ $flC->operation(--$extrinsicState);
 
 $flD = new UnsharedConcreteFlyweight();
 $flD->operation(--$extrinsicState);
+
+$c = $factory->getFlyweight('c');
+

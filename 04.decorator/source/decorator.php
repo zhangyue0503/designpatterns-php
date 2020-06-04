@@ -37,22 +37,22 @@ class ConcreteDecoratorB extends Decorator{
 }
 
 // 被装饰对象
-$component = new ConcreteComponent();
-$component->operation();
+// $component = new ConcreteComponent();
+// $component->operation(); // I'm face;
 
-// 装饰第一层
-$component = new ConcreteDecoratorA($component);
-$component->operation();
+// // 装饰第一层
+// $component = new ConcreteDecoratorA($component);
+// $component->operation(); // I'm face \n Push 1 cream!
 
-// 装饰第二层
-$component = new ConcreteDecoratorB($component);
-$component->operation();
+// // 装饰第二层
+// $component = new ConcreteDecoratorB($component);
+// $component->operation(); // I'm face \n Push 1 cream! \n Push 2 cream!
 
 // ... 不断被装饰
 
 // 直接一次全部装饰完
 // 请把上方的三个$component->operation();注释掉再看看
-$component2 = new ConcreteComponent();
-$component2 = new ConcreteDecoratorA($component2);
-$component2 = new ConcreteDecoratorB($component2);
+$component2 = new ConcreteComponent(); // face
+$component2 = new ConcreteDecoratorA($component2); // face 1
+$component2 = new ConcreteDecoratorB($component2); // face 1 2
 $component2->operation();

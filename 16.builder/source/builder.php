@@ -76,7 +76,7 @@ class Director
     public function Construct(Builder $builder)
     {
         $builder->BuildPartA();
-        $builder->BuildPartB();
+        // $builder->BuildPartB();
     }
 }
 

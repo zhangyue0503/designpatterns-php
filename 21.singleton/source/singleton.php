@@ -29,6 +29,8 @@ class Singleton
 
 }
 
+// $s = new Singleton;
+
 $singletonA = Singleton::GetInstance();
 echo $singletonA->GetSigletonData(), PHP_EOL;
 

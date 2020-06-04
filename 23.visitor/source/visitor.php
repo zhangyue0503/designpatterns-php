@@ -2,7 +2,7 @@
 
 interface Visitor
 {
-    public function VisitConcreteElementA(ConcreteElementA $a);
+    function VisitConcreteElementA(ConcreteElementA $a);
     function VisitConcreteElementB(ConcreteElementB $b);
 }
 

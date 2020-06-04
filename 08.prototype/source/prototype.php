@@ -35,6 +35,13 @@ class Client
 
         echo $p1->v;
         echo $p2->v;
+
+        // $p2->v = 123;
+        // echo $p1->v;
+        // echo $p2->v;
+
+        echo $p1 == $p2 ? "true" : 'false', PHP_EOL;
+        echo $p1 === $p2 ? "true" : 'false', PHP_EOL;
     }
 }
 

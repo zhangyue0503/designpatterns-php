@@ -53,10 +53,14 @@ class ConcreteSubject extends Subject{
         return $this->stateNow;
     }
 }
-
 $observer = new ConcreteObserver();
+$observer2 = new ConcreteObserver();
 $subject = new ConcreteSubject();
 $subject->attach($observer);
-$subject->setState('哈哈哈哈');
-// $subject->detach($observer);
+
 // $subject->setState('哈哈哈哈');
+// $subject->detach($observer);
+// $subject->setState('哈哈哈哈222');
+
+$subject->attach($observer2);
+$subject->setState('哈哈哈哈');

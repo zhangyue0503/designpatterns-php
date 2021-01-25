@@ -36,10 +36,10 @@ class Composite extends Component
     {
         $position = 0;
         foreach ($this->componentList as $child) {
-            ++$position;
             if ($child == $component) {
                 array_splice($this->componentList, ($position), 1);
             }
+            ++$position;
         }
     }
 

@@ -145,7 +145,7 @@ class Order
     public function detach($ob)
     {
         $position = 0;
-        foreach ($this->observers as $ob) {
+        foreach ($this->observers as $observer) {
             if ($ob == $observer) {
                 array_splice($this->observers, ($position), 1);
             }
@@ -175,6 +175,11 @@ $order = new Order();
 $order->attach($message);
 $order->attach($goods);
 
+// 订单卖出了！！
+$order->sale();
+
+echo PHP_EOL, '==== 删掉一个观察者 ====', PHP_EOL;
+$order->detach($goods);
 // 订单卖出了！！
 $order->sale();
 

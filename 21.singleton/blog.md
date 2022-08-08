@@ -104,6 +104,21 @@ class HttpService{
     }
 }
 
+$httpA = HttpService::GetInstance();
+$httpA->Post();
+$httpA->Get();
+
+$httpB = HttpService::GetInstance();
+$httpB->Post();
+$httpB->Get();
+
+var_dump($httpA === $httpB);
+// 发送Post请求
+// 发送Get请求
+// 发送Post请求
+// 发送Get请求
+// bool(true)
+
 $httpA = new HttpService();
 $httpA->Post();
 $httpA->Get();
@@ -112,7 +127,13 @@ $httpB = new HttpService();
 $httpB->Post();
 $httpB->Get();
 
-var_dump($httpA == $httpB);
+var_dump($httpA === $httpB);
+// 发送Post请求
+// 发送Get请求
+// 发送Post请求
+// 发送Get请求
+// bool(false)
+
 
 ```
 

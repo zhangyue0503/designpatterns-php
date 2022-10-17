@@ -18,7 +18,7 @@ class ConcreteObserver implements Observer
 class Subject
 {
     private $observers = [];
-    private $stateNow = '';
+    protected $stateNow = '';
     public function attach(Observer $observer): void
     {
         array_push($this->observers, $observer);
